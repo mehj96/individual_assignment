@@ -65,11 +65,21 @@ ggplot() +
   labs(title = "Types of Violence in Russia", 
        x = "Type of Violence", y = "Occurrences")
 
+# note only type 1 violence in USA!
 ggplot() +
   geom_bar(data = USA_entries, 
            aes(x = type_of_violence), color = 'red', fill = 'red') +
   labs(title = "Types of Violence in the USA", 
        x = "Type of Violence", y = "Occurrences")
 
+# create subset of Russian total casualties data between 2001 and 2012 to be more comparable to USA.
 
+Russia20012015 <- Russia_total_per_year %>% select('year', 'best') %>% filter(year > 2000)
+Russia20012012 <- Russia20012015 %>% select('year', 'best') %>% filter(year < 2013)
 
+# comparable Russian violence occurrences over 2002-2012 (good for comparison to USA data over same timeframe)
+ggplot() +
+  geom_point(data = Russia20012012,
+             aes(x = year, y = best), color = 'dark turquoise', size = 3) +
+  labs(title = "Total Casualties in Russia every Year", x = "Year", 
+       y= "Number of Casualties")

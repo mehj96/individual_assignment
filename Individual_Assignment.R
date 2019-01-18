@@ -66,9 +66,14 @@ ggplot() +
        x = "Type of Violence", y = "Occurrences")
 
 # note only type 1 violence in USA!
+USA_entries_factor <- USA_entries %>%
+  mutate(
+    ToV_factor = factor(type_of_violence, levels = c('1', '2', '3'))
+  )
+
 ggplot() +
-  geom_bar(data = USA_entries, 
-           aes(x = type_of_violence), color = 'red', fill = 'red') +
+  geom_bar(data = USA_entries_factor, 
+           aes(x = ToV_factor), color = 'red', fill = 'red') +
   labs(title = "Types of Violence in the USA", 
        x = "Type of Violence", y = "Occurrences")
 

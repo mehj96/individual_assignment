@@ -12,12 +12,6 @@ ggplot() +
               labs(title = "Casualties in the USA over the past 20 Years")
 
 
-ggplot() +
-  geom_bar(data = Russia_entries, 
-            aes(x = type_of_violence), color = 'red', fill = 'red') +
-              labs(title = "Types of Violence in Russia", 
-                   x = "Type of Violence", y = "Occurrences")
-
 # group total casualties (best) by year.
 
 # did NOT WORK
@@ -46,13 +40,13 @@ USA_total_per_year <- USA_entries %>% group_by(year) %>%
 
 ggplot() +
   geom_point(data = USA_total_per_year,
-             aes(x = year, y = best), color = 'dark turquoise', size = 3) +
+             aes(x = year, y = best), color = 'dark green', size = 3, alpha = 0.6) +
   labs(title = "Total Casualties in the USA every Year", x = "Year", 
        y= "Number of Casualties")
 
 ggplot() +
   geom_point(data = Russia_total_per_year,
-             aes(x = year, y = best), color = 'dark turquoise', size = 3) +
+             aes(x = year, y = best), color = 'dark red', size = 3) +
   labs(title = "Total Casualties in Russia every Year", x = "Year", 
        y= "Number of Casualties")
 
@@ -61,21 +55,16 @@ ggplot() +
 # for RUS
 ggplot() +
   geom_bar(data = Russia_entries, 
-           aes(x = type_of_violence), color = 'red', fill = 'red') +
-  labs(title = "Types of Violence in Russia", 
-       x = "Type of Violence", y = "Occurrences")
+           aes(x = type_of_violence), color = 'dark red', fill = 'dark red') +
+  labs(title = "Types of Conflicts in Russia", 
+       x = "Type of Conflict", y = "Occurrences")
 
 # note only type 1 violence in USA!
-USA_entries_factor <- USA_entries %>%
-  mutate(
-    ToV_factor = factor(type_of_violence, levels = c('1', '2', '3'))
-  )
-
 ggplot() +
-  geom_bar(data = USA_entries_factor, 
-           aes(x = ToV_factor), color = 'red', fill = 'red') +
-  labs(title = "Types of Violence in the USA", 
-       x = "Type of Violence", y = "Occurrences")
+  geom_bar(data = USA_entries, 
+           aes(x = type_of_violence), color = 'red', fill = 'red') +
+  labs(title = "Types of Conflicts in the USA", 
+       x = "Type of Conflict", y = "Occurrences")
 
 # create subset of Russian total casualties data between 2001 and 2012 to be more comparable to USA.
 
@@ -88,3 +77,14 @@ ggplot() +
              aes(x = year, y = best), color = 'dark turquoise', size = 3) +
   labs(title = "Total Casualties in Russia every Year", x = "Year", 
        y= "Number of Casualties")
+
+# overlaid graph Russia and USA 2001 to 2012.
+ggplot() +
+  geom_line(data = Russia20012012,
+             aes(x = year, y = best), color = 'dark red', size = 1.5)  +
+  geom_line(data = USA_total_per_year,
+             aes(x = year, y = best), color = 'dark green', size = 1.5, alpha = 0.5) +
+  labs(title = "Total Casualties in the USA and Russia every Year", x = "Year", 
+       y= "Number of Casualties")
+
+
